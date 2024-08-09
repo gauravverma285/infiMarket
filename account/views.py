@@ -45,3 +45,9 @@ def blog_sidebar(request):
 
 def elements_product(request):
     return render(request , 'elements-products.html')
+
+def terms(request):
+    return render(request , 'terms.html')
+
+def forgot(request):
+    return render(request , 'forgot.html')

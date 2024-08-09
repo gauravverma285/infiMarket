@@ -467,12 +467,12 @@
                             <span class="cr-heading-res"></span>
                         </h4>
                         <ul class="cr-footer-links cr-footer-dropdown">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="track-order.html">Delivery Information</a></li>
-                            <li><a href="policy.html">Privacy Policy</a></li>
-                            <li><a href="terms.html">Terms & Conditions</a></li>
-                            <li><a href="contact-us.html">contact Us</a></li>
-                            <li><a href="faq.html">Support Center</a></li>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'track-order' %}">Delivery Information</a></li>
+                            <li><a href="{% url 'policy' %}">Privacy Policy</a></li>
+                            <li><a href="{% url 'terms' %}">Terms & Conditions</a></li>
+                            <li><a href="{% url 'contact-us' %}">contact Us</a></li>
+                            <li><a href="{% url 'faq' %}">Support Center</a></li>
                         </ul>
                     </div>
                 </div>
@@ -483,12 +483,12 @@
                             <span class="cr-heading-res"></span>
                         </h4>
                         <ul class="cr-footer-links cr-footer-dropdown">
-                            <li><a href="shop-left-sidebar.html">Dairy & Bakery</a></li>
-                            <li><a href="shop-left-sidebar.html">Fruits & Vegetable</a></li>
-                            <li><a href="shop-left-sidebar.html">Snack & Spice</a></li>
-                            <li><a href="shop-left-sidebar.html">Juice & Drinks</a></li>
-                            <li><a href="shop-left-sidebar.html">Chicken & Meat</a></li>
-                            <li><a href="shop-left-sidebar.html">Fast Food</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Dairy & Bakery</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Fruits & Vegetable</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Snack & Spice</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Juice & Drinks</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Chicken & Meat</a></li>
+                            <li><a href="{% url 'shop-left-sidebar' %}">Fast Food</a></li>
                         </ul>
                     </div>
                 </div>
@@ -570,7 +570,7 @@
                 </div>
             </div>
             <div class="cr-last-footer">
-                <p>&copy; <span id="copyright_year"></span> <a href="index.html">Carrot</a>, All rights reserved.</p>
+                <p>&copy; <span id="copyright_year"></span> <a href="{% url 'index' %}">Carrot</a>, All rights reserved.</p>
             </div>
         </div>
     </footer>

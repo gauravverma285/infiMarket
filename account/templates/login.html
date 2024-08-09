@@ -53,11 +53,11 @@
                                 <input type="checkbox" id="html">
                                 <label for="html">Remember Me</label>
                             </span>
-                            <a class="link" href="forgot.html">Forgot Password?</a>
+                            <a class="link" href="{% url 'forgot' %}">Forgot Password?</a>
                         </div><br>
                         <div class="login-buttons">
                             <button type="button" class="cr-button">Login</button>
-                            <a href="register.html" class="link">
+                            <a href="{% url 'register' %}" class="link">
                                 Signup?
                             </a>
                         </div>

@@ -17,4 +17,6 @@ urlpatterns = [
     path('policy/', policy, name="policy"),
     path('blog_sidebar/', blog_sidebar, name="blog-left-sidebar"),
     path('elements_product/', elements_product, name="elements-products"),
+    path('terms/', terms, name="terms"),
+    path('forgot/', forgot, name="forgot"),
 ]
