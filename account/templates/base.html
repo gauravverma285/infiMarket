@@ -32,9 +32,14 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
 
-<body>
-     <!-- Header -->
-     <header>
+<body class="body-bg-6">
+    <!-- Loader -->
+    <div id="cr-overlay">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Header -->
+    <header>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -283,18 +288,18 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="register.html">Register yyyyyyyyyyy    </a>
+                                            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="checkout.html">Checkout</a>
+                                            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="login.html">Login</a>
+                                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                            <a href="wishlist.html" class="cr-right-bar-item">
+                            <a href="{% url 'wishlist' %}" class="cr-right-bar-item">
                                 <i class="ri-heart-line"></i>
                             </a>
                             <a href="javascript:void(0)" class="cr-right-bar-item Shopping-toggle">
@@ -317,10 +322,6 @@
                                             <a class="dropdown-item" href="{% url 'shop-left-sidebar' %}">Shop Left
                                                 sidebar</a>
                                         </li>
-                                        <li>
-                                            <a class="dropdown-item" href="shop-full-width.html">Full
-                                                Width</a>
-                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -332,12 +333,6 @@
                                             <a class="dropdown-item" href="{% url 'product-left-sidebar' %}">product
                                                 Left
                                                 sidebar </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="product-full-width.html">Product
-                                                Full
-                                                Width
-                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -362,16 +357,7 @@
                                             <a class="dropdown-item" href="{% url 'track-order' %}">Track Order</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-                                        </li>
-                                        <li>
                                             <a class="dropdown-item" href="{% url 'faq' %}">Faq</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="{% url 'policy' %}">Policy</a>
@@ -385,15 +371,6 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a class="dropdown-item" href="{% url 'blog-left-sidebar' %}">Left
-                                                Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="blog-full-width.html">Full
-                                                Width</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="blog-detail-left-sidebar.html">Detail
-                                                Left
                                                 Sidebar</a>
                                         </li>
                                         <li>
@@ -425,12 +402,339 @@
         </div>
     </header>
 
+    <!-- Mobile menu -->
+    <div class="cr-sidebar-overlay"></div>
+    <div id="cr_mobile_menu" class="cr-side-cart cr-mobile-menu">
+        <div class="cr-menu-title">
+            <span class="menu-title">My Menu</span>
+            <button type="button" class="cr-close">×</button>
+        </div>
+        <div class="cr-menu-inner">
+            <div class="cr-menu-content">
+                <ul>
+                    <li class="dropdown drop-list">
+                        <a href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="dropdown drop-list">
+                        <span class="menu-toggle"></span>
+                        <a href="javascript:void(0)" class="dropdown-list">Category</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'shop-left-sidebar' %}">Shop Left sidebar</a></li>
+                            <li><a href="{% url 'shop-right-sidebar' %}">Shop Right sidebar</a></li>
+                            <li><a href="{% url 'shop-full-width' %}">Full Width</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown drop-list">
+                        <span class="menu-toggle"></span>
+                        <a href="javascript:void(0)" class="dropdown-list">product</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'product-left-sidebar' %}">product Left sidebar</a></li>
+                            <li><a href="{% url 'product-right-sidebar' %}">product Right sidebar</a></li>
+                            <li><a href="{% url 'product-full-width' %}">Product Full Width </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown drop-list">
+                        <span class="menu-toggle"></span>
+                        <a href="javascript:void(0)" class="dropdown-list">Pages</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
+                            <li><a href="{% url 'cart' %}">Cart</a></li>
+                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                            <li><a href="{% url 'track-order' %}">Track Order</a></li>
+                            <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
+                            <li><a href="{% url 'faq' %}">Faq</a></li>
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                            <li><a href="{% url 'policy' %}">Policy</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown drop-list">
+                        <span class="menu-toggle"></span>
+                        <a href="javascript:void(0)" class="dropdown-list">Blog</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'blog-left-sidebar' %}">Left Sidebar</a></li>
+                            <li><a href="{% url 'blog-detail-full-width' %}">Detail Full Width</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown drop-list">
+                        <span class="menu-toggle"></span>
+                        <a href="javascript:void(0)">Element</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'elements-products' %}">Products</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     {% block content %}
 
 
     {% endblock %}
 
-     <!-- Footer -->
+    <!-- Tab to top -->
+    <a href="#Top" class="back-to-top result-placeholder">
+        <i class="ri-arrow-up-line"></i>
+        <div class="back-to-top-wrap">
+            <svg viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+    </a>
+
+    <!-- Model -->
+    <div class="modal fade quickview-modal" id="quickview" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered cr-modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="cr-close-model btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <div class="zoom-image-hover modal-border-image">
+                                <img src="{% static 'assets/img/product/tab-1.jpg' %}" alt="product-tab-2"
+                                    class="product-image">
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                            <div class="cr-size-and-weight-contain">
+                                <h2 class="heading">Peach Seeds Of Change Oraganic Quinoa, Brown fruit</h2>
+                                <p>Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                    since the 1900s,</p>
+                            </div>
+                            <div class="cr-size-and-weight">
+                                <div class="cr-review-star">
+                                    <div class="cr-star">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                    </div>
+                                    <p>( 75 Review )</p>
+                                </div>
+                                <div class="cr-product-price">
+                                    <span class="new-price">$120.25</span>
+                                    <span class="old-price">$123.25</span>
+                                </div>
+                                <div class="cr-size-weight">
+                                    <h5><span>Size</span>/<span>Weight</span> :</h5>
+                                    <div class="cr-kg">
+                                        <ul>
+                                            <li class="active-color">500gm</li>
+                                            <li>1kg</li>
+                                            <li>2kg</li>
+                                            <li>5kg</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cr-add-card">
+                                    <div class="cr-qty-main">
+                                        <input type="text" placeholder="." value="1" minlength="1" maxlength="20"
+                                            class="quantity">
+                                        <button type="button" id="add_model" class="plus">+</button>
+                                        <button type="button" id="sub_model" class="minus">-</button>
+                                    </div>
+                                    <div class="cr-add-button">
+                                        <button type="button" class="cr-button">Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart -->
+    <div class="cr-cart-overlay"></div>
+    <div class="cr-cart-view">
+        <div class="cr-cart-inner">
+            <div class="cr-cart-top">
+                <div class="cr-cart-title">
+                    <h6>My Cart</h6>
+                    <button type="button" class="close-cart">×</button>
+                </div>
+                <ul class="crcart-pro-items">
+                    <li>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
+                                src="{% static 'assets/img/product/4.jpg' %}" alt="product-1"></a>
+                        <div class="cr-pro-content">
+                            <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Fresh Pomegranate</a>
+                            <span class="cart-price"><span>$56.00</span> x 1kg</span>
+                            <div class="cr-cart-qty">
+                                <div class="cart-qty-plus-minus">
+                                    <button type="button" class="plus">+</button>
+                                    <input type="text" placeholder="." value="1" minlength="1" maxlength="20"
+                                        class="quantity">
+                                    <button type="button" class="minus">-</button>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
+                                src="{% static 'assets/img/product/2.jpg' %}" alt="product-2"></a>
+                        <div class="cr-pro-content">
+                            <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Green Apples</a>
+                            <span class="cart-price"><span>$75.00</span> x 1kg</span>
+                            <div class="cr-cart-qty">
+                                <div class="cart-qty-plus-minus">
+                                    <button type="button" class="plus">+</button>
+                                    <input type="text" placeholder="." value="1" minlength="1" maxlength="20"
+                                        class="quantity">
+                                    <button type="button" class="minus">-</button>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
+                                src="{% static 'assets/img/product/3.jpg' %}" alt="product-3"></a>
+                        <div class="cr-pro-content">
+                            <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Watermelon - Small</a>
+                            <span class="cart-price"><span>$48.00</span> x 5kg</span>
+                            <div class="cr-cart-qty">
+                                <div class="cart-qty-plus-minus">
+                                    <button type="button" class="plus">+</button>
+                                    <input type="text" placeholder="." value="1" minlength="1" maxlength="20"
+                                        class="quantity">
+                                    <button type="button" class="minus">-</button>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="cr-cart-bottom">
+                <div class="cart-sub-total">
+                    <table class="table cart-table">
+                        <tbody>
+                            <tr>
+                                <td class="text-left">Sub-Total :</td>
+                                <td class="text-right">$300.00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">VAT (20%) :</td>
+                                <td class="text-right">$60.00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Total :</td>
+                                <td class="text-right primary-color">$360.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cart_btn">
+                    <a href="{% url 'cart' %}" class="cr-button">View Cart</a>
+                    <a href="{% url 'checkout' %}" class="cr-btn-secondary">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side-tool -->
+    <div class="cr-tool-overlay"></div>
+    <div class="cr-tool">
+        <div class="cr-tool-btn">
+            <a href="javascript:void(0)" class="btn-cr-tool result-placeholder">
+                <i class="ri-settings-line"></i>
+            </a>
+            <div class="color-variant">
+                <div class="cr-bar-title">
+                    <h6>Tools</h6>
+                    <a href="javascript:void(0)" class="close-tools">
+                        <i class="ri-close-line"></i>
+                    </a>
+                </div>
+                <div class="cr-tools-detail">
+                    <div class="heading">
+                        <h2>Select Color</h2>
+                    </div>
+                    <ul class="cr-color">
+                        <li class="colors c1 active-colors">
+                        </li>
+                        <li class="colors c2">
+                        </li>
+                        <li class="colors c3">
+                        </li>
+                        <li class="colors c4">
+                        </li>
+                        <li class="colors c5">
+                        </li>
+                        <li class="colors c6">
+                        </li>
+                        <li class="colors c7">
+                        </li>
+                        <li class="colors c8">
+                        </li>
+                        <li class="colors c9">
+                        </li>
+                        <li class="colors c10">
+                        </li>
+                    </ul>
+                </div>
+                <div class="cr-tools-detail">
+                    <div class="heading">
+                        <h2>Dark mode</h2>
+                    </div>
+                    <ul class="dark-mode">
+                        <li class="dark">
+                        </li>
+                        <li class="white active-dark-mode">
+                        </li>
+                    </ul>
+                </div>
+                <div class="cr-tools-detail">
+                    <div class="heading">
+                        <h2>RTL mode</h2>
+                    </div>
+                    <ul class="rtl-mode">
+                        <li class="rtl">
+                            <img src="{% static 'assets/img/tool/rtl.png' %}" alt="rtl">
+                        </li>
+                        <li class="ltr active-rtl-mode">
+                            <img src="{% static 'assets/img/tool/ltr.png' %}" alt="ltr">
+                        </li>
+                    </ul>
+                </div>
+                <div class="cr-tools-detail">
+                    <div class="heading">
+                        <h2>Backgrounds</h2>
+                    </div>
+                    <ul class="bg-panel">
+                        <li class="bg-1">
+                            <img src="{% static 'assets/img/shape/bg-shape-1.png' %}" alt="bg-shape-1">
+                        </li>
+                        <li class="bg-2">
+                            <img src="{% static 'assets/img/shape/bg-shape-2.png' %}" alt="bg-shape-2">
+                        </li>
+                        <li class="bg-3">
+                            <img src="{% static 'assets/img/shape/bg-shape-3.png' %}" alt="bg-shape-3">
+                        </li>
+                        <li class="bg-4">
+                            <img src="{% static 'assets/img/shape/bg-shape-4.png' %}" alt="bg-shape-4">
+                        </li>
+                        <li class="bg-5">
+                            <img src="{% static 'assets/img/shape/bg-shape-5.png' %}" alt="bg-shape-5">
+                        </li>
+                        <li class="bg-6 active-bg-panel">
+                            <img src="{% static 'assets/img/shape/bg-shape-6.png' %}" alt="bg-shape-6">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="footer padding-t-100 bg-off-white">
         <div class="container">
             <div class="row footer-top padding-b-100">
@@ -570,24 +874,25 @@
                 </div>
             </div>
             <div class="cr-last-footer">
-                <p>&copy; <span id="copyright_year"></span> <a href="{% url 'index' %}">Carrot</a>, All rights reserved.</p>
+                <p>&copy; <span id="copyright_year"></span> <a href="{% url 'index' %}">Carrot</a>, All rights reserved.
+                </p>
             </div>
         </div>
     </footer>
 
-   <!-- Vendor Custom -->
-   <script src="{% static 'assets/js/vendor/jquery-3.6.4.min.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/jquery.zoom.min.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/mixitup.min.js' %}"></script>
+    <!-- Vendor Custom -->
+    <script src="{% static 'assets/js/vendor/jquery-3.6.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery.zoom.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/mixitup.min.js' %}"></script>
 
-   <script src="{% static 'assets/js/vendor/range-slider.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/aos.min.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/swiper-bundle.min.js' %}"></script>
-   <script src="{% static 'assets/js/vendor/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/range-slider.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/aos.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/slick.min.js' %}"></script>
 
-   <!-- Main Custom -->
-   <script src="{% static 'assets/js/main.js' %}"></script>
+    <!-- Main Custom -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
 </body>
 
 </html>
