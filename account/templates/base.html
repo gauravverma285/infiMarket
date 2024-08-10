@@ -13,7 +13,7 @@
     <title>Carrot - Multipurpose eCommerce HTML Template</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{% static 'assets/img/logo/favicon.png' %}">
+    {#<link rel="shortcut icon" href="{% static 'assets/img/logo/favicon.png' %}">#}
 
     <!-- Icon CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/vendor/materialdesignicons.min.css' %}">
@@ -313,80 +313,30 @@
                                         Home
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'shop-left-sidebar' %}">
                                         Category
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'shop-left-sidebar' %}">Shop Left
-                                                sidebar</a>
-                                        </li>
-                                    </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'elements-products' %}">
                                         Products
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'product-left-sidebar' %}">product
-                                                Left
-                                                sidebar </a>
-                                        </li>
-                                    </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)">
-                                        Pages
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'about' %}">About Us</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'contact-us' %}">Contact Us</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'track-order' %}">Track Order</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'faq' %}">Faq</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'policy' %}">Policy</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'blog-detail-left-sidebar' %}">
                                         Blog
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'blog-left-sidebar' %}">Left
-                                                Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'blog-detail-left-sidebar' %}">blog detail left sidebar</a>
-                                        </li>
-                                    </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)">
-                                        Elements
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{% url 'about' %}">
+                                        About Us
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{% url 'elements-products' %}">Products</a>
-                                        </li>
-                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{% url 'contact-us' %}">
+                                        Contact Us
+                                    </a>
                                 </li>
                             </ul>
                         </div>
