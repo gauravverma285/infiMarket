@@ -374,9 +374,7 @@
                                                 Sidebar</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="blog-detail-full-width.html">Detail
-                                                Full
-                                                Width</a>
+                                            <a class="dropdown-item" href="{% url 'blog-detail-left-sidebar' %}">blog detail left sidebar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -420,8 +418,6 @@
                         <a href="javascript:void(0)" class="dropdown-list">Category</a>
                         <ul class="sub-menu">
                             <li><a href="{% url 'shop-left-sidebar' %}">Shop Left sidebar</a></li>
-                            <li><a href="{% url 'shop-right-sidebar' %}">Shop Right sidebar</a></li>
-                            <li><a href="{% url 'shop-full-width' %}">Full Width</a></li>
                         </ul>
                     </li>
                     <li class="dropdown drop-list">
@@ -429,8 +425,6 @@
                         <a href="javascript:void(0)" class="dropdown-list">product</a>
                         <ul class="sub-menu">
                             <li><a href="{% url 'product-left-sidebar' %}">product Left sidebar</a></li>
-                            <li><a href="{% url 'product-right-sidebar' %}">product Right sidebar</a></li>
-                            <li><a href="{% url 'product-full-width' %}">Product Full Width </a></li>
                         </ul>
                     </li>
                     <li class="dropdown drop-list">
@@ -454,7 +448,7 @@
                         <a href="javascript:void(0)" class="dropdown-list">Blog</a>
                         <ul class="sub-menu">
                             <li><a href="{% url 'blog-left-sidebar' %}">Left Sidebar</a></li>
-                            <li><a href="{% url 'blog-detail-full-width' %}">Detail Full Width</a></li>
+                            {#<li><a href="{% url 'blog-detail-left-sidebar' %}">Detail Full Width</a></li>#}
                         </ul>
                     </li>
                     <li class="dropdown drop-list">
