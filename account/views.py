@@ -43,5 +43,14 @@ def policy(request):
 def blog_sidebar(request):
     return render(request , 'blog-left-sidebar.html')
 
+def blog_detail_left_sidebar(request):
+    return render(request , 'blog-detail-left-sidebar.html')
+
 def elements_product(request):
     return render(request , 'elements-products.html')
+
+def terms(request):
+    return render(request , 'terms.html')
+
+def forgot(request):
+    return render(request , 'forgot.html')
