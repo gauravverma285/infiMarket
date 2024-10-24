@@ -39,6 +39,14 @@
                     <div class="form-logo">
                         <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo">
                     </div>
+
+                    {% if messages %}
+                    <div class="alert alert-info" id="message">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <form class="cr-content-form" method="post" action="{% url 'forgot' %}">
                         {% csrf_token %}
                         <div class="form-group">
@@ -57,4 +65,11 @@
         </div>
     </div>
 </section>
+
+<script>
+    setTimeout(function () {
+        document.getElementById("message").style.display = "none";
+    }, 5000);  // Hide the message after 5 seconds
+</script>
+
 {% endblock %}

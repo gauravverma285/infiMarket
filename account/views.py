@@ -18,7 +18,6 @@ def index(request):
     return render(request, 'index.html')
 
 def register(request):
-    print("11111111111111111111111111111111111111111111111111111")
     if request.method == "POST":
         try:
             firstname = request.POST['firstname']
@@ -58,7 +57,7 @@ def register(request):
                 return redirect('register.html')
 
         except Exception as e:
-            print(f"Error: {e}")
+            # print(f"Error: {e}")
             return render(request, 'register.html', {'message': 'An error occurred'})
 
     return render(request, 'register.html')
@@ -139,13 +138,10 @@ def terms(request):
 def forgot(request):
     if request.method == 'POST':
         email = request.POST.get('email', '').strip() 
-        # Verify if the email exists in the database
         User = get_user_model()
-        print(User)
         try:
             user = User.objects.get(email=email)
             if user:
-                print("User is present")
                 otp = random.randint(1000, 9999)  
                 request.session['otp'] = otp
                 request.session['email'] = email
@@ -157,25 +153,17 @@ def forgot(request):
                     [email],
                     fail_silently=False,
                 )
-                print("OTP sent successfully")
                 return redirect('otp')  
         except User.DoesNotExist:
-            print("Error: Email does not exist")
             messages.error(request, 'Email does not exist.')
     return render(request , 'forgot.html')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def otp(request):
-    print("otp=========verification")
     if request.method == 'POST':
         otp_input = request.POST.get('otp_full')  
         session_otp = request.session.get('otp')
-        print(otp_input)
-        print(session_otp)
-        
-        print(type(otp_input))   
-        print(type(session_otp))
-        
+
         if otp_input is None:
             messages.error(request, 'OTP input is required.')
             return render(request, 'otp.html')
@@ -186,9 +174,7 @@ def otp(request):
 
         try:
             otp_input_int = int(otp_input) 
-            session_otp_int = int(session_otp)  
-            print(type(otp_input_int),'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')   
-            print(type(session_otp_int),"vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")   
+            session_otp_int = int(session_otp)     
             if otp_input_int == session_otp_int:
                 return redirect('newpassword')  
             else:
@@ -210,15 +196,12 @@ def new_password(request):
             return render(request, 'newpassword.html')
 
         try:
-            session_email = request.session.get('email')
-            print(session_email)
+            session_email = request.session.get('email')  
             if not session_email:
                 messages.error(request, 'Session expired or invalid session. Please try again.')
                 return redirect('login') 
             User = get_user_model()
-            print(User)
             user = User.objects.get(email=session_email)
-            print(user, new_password, 'AAAAAAAAAAAAAAAAAAAAAA')
             user.set_password(new_password)
             user.save()
             messages.success(request, 'Your password has been updated successfully.')
