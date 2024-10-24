@@ -5,6 +5,7 @@ urlpatterns = [
     path('', index, name="index"),
     path('register/', register, name="register"),
     path('login/', login, name="login"),
+    path('logout/', logout_view, name="logout"),
     path('checkout/', checkout, name="checkout"),
     path('wishlist/', wishlist, name="wishlist"),
     path('left_sidebar/', left_sidebar, name="shop-left-sidebar"),
@@ -20,4 +21,6 @@ urlpatterns = [
     path('elements_product/', elements_product, name="elements-products"),
     path('terms/', terms, name="terms"),
     path('forgot/', forgot, name="forgot"),
+    path('user-dashboard/', user_dashboard, name="user-dashboard"),
+    path('delete/',delete,name='delete')
 ]

@@ -13,7 +13,8 @@
     <title>Carrot - Multipurpose eCommerce HTML Template</title>
 
     <!-- App favicon -->
-    {#<link rel="shortcut icon" href="{% static 'assets/img/logo/favicon.png' %}">#}
+
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/favicon.png' %}">
 
     <!-- Icon CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/vendor/materialdesignicons.min.css' %}">
@@ -65,18 +66,27 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle cr-right-bar-item" href="javascript:void(0)">
                                         <i class="ri-user-3-line"></i>
+
+                                        {% if user.is_authenticated %}
+                                        <span>{{ user.firstname }}</span>
+                                        {% else %}
                                         <span>Account</span>
+                                        {% endif %}
+
                                     </a>
                                     <ul class="dropdown-menu">
+                                        {% if user.is_authenticated %}
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                        </li>
+                                        {% else %}
                                         <li>
                                             <a class="dropdown-item" href="{% url 'register' %}">Register</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
-                                        </li>
-                                        <li>
                                             <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                                         </li>
+                                        {% endif %}
                                     </ul>
                                 </li>
                             </ul>
@@ -84,7 +94,7 @@
                                 <i class="ri-heart-3-line"></i>
                                 <span>Wishlist</span>
                             </a>
-                            <a href="javascript:void(0)" class="cr-right-bar-item Shopping-toggle">
+                            <a href="{% url 'cart' %}" class="cr-right-bar-item Shopping-toggle">
                                 <i class="ri-shopping-cart-line"></i>
                                 <span>Cart</span>
                             </a>
@@ -495,6 +505,7 @@
     </div>
 
     <!-- Cart -->
+    {% if user.is_authenticated %}
     <div class="cr-cart-overlay"></div>
     <div class="cr-cart-view">
         <div class="cr-cart-inner">
@@ -505,8 +516,9 @@
                 </div>
                 <ul class="crcart-pro-items">
                     <li>
-                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
-                                src="{% static 'assets/img/product/4.jpg' %}" alt="product-1"></a>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img">
+                            <img src="{% static 'assets/img/product/4.jpg' %}" alt="product-1">
+                        </a>
                         <div class="cr-pro-content">
                             <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Fresh Pomegranate</a>
                             <span class="cart-price"><span>$56.00</span> x 1kg</span>
@@ -522,8 +534,9 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
-                                src="{% static 'assets/img/product/2.jpg' %}" alt="product-2"></a>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img">
+                            <img src="{% static 'assets/img/product/2.jpg' %}" alt="product-2">
+                        </a>
                         <div class="cr-pro-content">
                             <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Green Apples</a>
                             <span class="cart-price"><span>$75.00</span> x 1kg</span>
@@ -539,8 +552,9 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img"><img
-                                src="{% static 'assets/img/product/3.jpg' %}" alt="product-3"></a>
+                        <a href="{% url 'product-left-sidebar' %}" class="crside_pro_img">
+                            <img src="{% static 'assets/img/product/3.jpg' %}" alt="product-3">
+                        </a>
                         <div class="cr-pro-content">
                             <a href="{% url 'product-left-sidebar' %}" class="cart_pro_title">Watermelon - Small</a>
                             <span class="cart-price"><span>$48.00</span> x 5kg</span>
@@ -583,6 +597,16 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="cr-cart-overlay"></div>
+    <div class="cr-cart-view">
+        <div class="cr-cart-inner">
+            <h6>Please log in to view your cart.</h6>
+            <a href="{% url 'login' %}" class="cr-btn-secondary">Log In</a>
+        </div>
+    </div>
+    {% endif %}
+
 
     <!-- Side-tool -->
     <div class="cr-tool-overlay"></div>
