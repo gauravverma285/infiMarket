@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- Breadcrumb -->
+<section class="section-breadcrumb">
+    <div class="cr-breadcrumb-image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cr-breadcrumb-title">
+                        <h2>OTP VERIFICATION</h2>
+                        <span> <a href="{% url 'index' %}">Home</a> - Otp Verification</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Forgot page -->
+<section class="section-login padding-tb-100">
+    <div class="container">
+        <div class="row d-none">
+            <div class="col-lg-12">
+                <div class="mb-30" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+                    <div class="cr-banner">
+                        <h2>OTP Verification</h2>
+                    </div>
+                    <div class="cr-banner-sub-title">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore lacus vel facilisis. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="cr-login" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+                    <div class="form-logo">
+                        <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo">
+                    </div>
+
+                    {% if messages %}
+                    <div class="alert alert-info" id="message">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form class="cr-content-form" method="post" action="{% url 'otp' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="hidden" id="otp_full" name="otp_full" />
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this)" />
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this)" />
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this)" />
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this)" />
+                        </div>
+
+                        <div class="login-buttons">
+                            <button type="submit" class="cr-button">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    setTimeout(function () {
+        document.getElementById("message").style.display = "none";
+    }, 5000);  // Hide the message after 5 seconds
+
+    function moveToNext(currentInput) {
+        // Update the hidden input with the concatenated OTP value
+        const otpInputs = document.querySelectorAll('.otp-input');
+        let otpValue = '';
+        otpInputs.forEach(input => {
+            otpValue += input.value;
+        });
+        document.getElementById('otp_full').value = otpValue;
+
+        // Move to the next input if the current one is filled
+        if (currentInput.value.length >= currentInput.maxLength) {
+            const nextInput = currentInput.nextElementSibling;
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    }
+</script>
+
+{% endblock %}

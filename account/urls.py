@@ -22,5 +22,7 @@ urlpatterns = [
     path('terms/', terms, name="terms"),
     path('forgot/', forgot, name="forgot"),
     path('user-dashboard/', user_dashboard, name="user-dashboard"),
-    path('delete/',delete,name='delete')
+    path('delete/',delete,name='delete'),
+    path('otp/',otp,name='otp'),
+    path('newpassword/',new_password,name='newpassword'),
 ]

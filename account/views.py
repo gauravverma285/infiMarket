@@ -6,6 +6,10 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.conf import settings
+import random
 # Create your views here.
 
 
@@ -133,7 +137,97 @@ def terms(request):
     return render(request , 'terms.html')
 
 def forgot(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '').strip() 
+        # Verify if the email exists in the database
+        User = get_user_model()
+        print(User)
+        try:
+            user = User.objects.get(email=email)
+            if user:
+                print("User is present")
+                otp = random.randint(1000, 9999)  
+                request.session['otp'] = otp
+                request.session['email'] = email
+              
+                send_mail(
+                    'Password Reset OTP',
+                    f'Your OTP for password reset is {otp}.',
+                    settings.EMAIL_HOST_USER,
+                    [email],
+                    fail_silently=False,
+                )
+                print("OTP sent successfully")
+                return redirect('otp')  
+        except User.DoesNotExist:
+            print("Error: Email does not exist")
+            messages.error(request, 'Email does not exist.')
     return render(request , 'forgot.html')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def otp(request):
+    print("otp=========verification")
+    if request.method == 'POST':
+        otp_input = request.POST.get('otp_full')  
+        session_otp = request.session.get('otp')
+        print(otp_input)
+        print(session_otp)
+        
+        print(type(otp_input))   
+        print(type(session_otp))
+        
+        if otp_input is None:
+            messages.error(request, 'OTP input is required.')
+            return render(request, 'otp.html')
+
+        if session_otp is None:
+            messages.error(request, 'Session has expired or OTP is not set.') 
+            return render(request, 'otp.html')
+
+        try:
+            otp_input_int = int(otp_input) 
+            session_otp_int = int(session_otp)  
+            print(type(otp_input_int),'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')   
+            print(type(session_otp_int),"vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")   
+            if otp_input_int == session_otp_int:
+                return redirect('newpassword')  
+            else:
+                messages.error(request, 'Invalid OTP.')
+        except ValueError as e:
+            print(e)
+            messages.error(request, 'OTP must be a number.')
+
+    return render(request, 'otp.html')
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_password(request):
+    if request.method == 'POST':
+        new_password = request.POST.get('newpassword')
+        confirm_password = request.POST.get('confirmnewpassword')
+
+        if new_password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'newpassword.html')
+
+        try:
+            session_email = request.session.get('email')
+            print(session_email)
+            if not session_email:
+                messages.error(request, 'Session expired or invalid session. Please try again.')
+                return redirect('login') 
+            User = get_user_model()
+            print(User)
+            user = User.objects.get(email=session_email)
+            print(user, new_password, 'AAAAAAAAAAAAAAAAAAAAAA')
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, 'Your password has been updated successfully.')
+            return redirect('login')  
+        except user.DoesNotExist:
+            messages.error(request, 'user not found')    
+            return render(request, 'forget.html')
+    else:
+        return render(request, 'newpassword.html')
+    
 def delete(request):
     return render(request,'cart.html')
