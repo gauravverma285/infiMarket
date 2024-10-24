@@ -27,25 +27,31 @@ def register(request):
             country = request.POST['country']
             state = request.POST['state']
             password = request.POST['password']
+            confirmpassword = request.POST['confirmpassword']
 
+            if password != confirmpassword:
+                messages.error(request, 'Passwords do not match.')
+                return render(request, 'register.html')
+            
             if User_Registration.objects.filter(email=email).exists():
                 messages.error(request, 'User already registered.')
                 return render(request, 'register.html')
-
-            user = User_Registration.objects.create(
-                firstname=firstname,
-                lastname=lastname,
-                email=email,
-                phonenumber=phonenumber,
-                address=address,
-                city=city,
-                postcode=postcode,
-                country=country,
-                state=state
-            )
-            user.set_password(password)  # Now we can use set_password
-            user.save()
-            return redirect('login')
+            else:
+                user = User_Registration.objects.create(
+                    firstname=firstname,
+                    lastname=lastname,
+                    email=email,
+                    phonenumber=phonenumber,
+                    address=address,
+                    city=city,
+                    postcode=postcode,
+                    country=country,
+                    state=state
+                )
+                user.set_password(password)  # Now we can use set_password
+                user.save()
+                messages.success(request, 'Registration successful!')
+                return redirect('register.html')
 
         except Exception as e:
             print(f"Error: {e}")

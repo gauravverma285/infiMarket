@@ -37,7 +37,7 @@
             <div class="col-12">
                 <div class="cr-cart-content" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
                     <div class="row">
-                        <form action="#">
+                        <form method="post" action="{% url 'delete' item.id %}">
                             <div class="cr-table-content">
                                 <table>
                                     <thead>

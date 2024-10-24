@@ -39,6 +39,15 @@
                     <div class="form-logo">
                         <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo">
                     </div>
+
+                    {% if messages %}
+                    <div class="alert alert-info" id="message">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     <form class="cr-content-form" method="POST" action="{% url 'register' %}">
                         {% csrf_token %}
                         <div class="row">
@@ -71,23 +80,34 @@
                                         class="cr-form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="form-group">
+                                <label>Password*</label>
+                                <input type="password" name="password" placeholder="password" class="cr-form-control"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label> Confirm Password*</label>
+                                <input type="password" name="confirmpassword" placeholder="confirm password"
+                                    class="cr-form-control" required>
+                            </div>
+                            <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label>Address*</label>
-                                    <input type="text" name="address" placeholder="Address" class="cr-form-control"
+                                    <label>Country*</label>
+                                    <input type="text" name="country" placeholder="country" class="cr-form-control"
                                         required>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>City*</label>
-                                    <select class="cr-form-control" aria-label="Default select example" name="city"
+                                    <input type="text" name="city" placeholder="city" class="cr-form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Region State*</label>
+                                    <input type="text" name="state" placeholder="state" class="cr-form-control"
                                         required>
-                                        <option selected>City</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
@@ -97,36 +117,16 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label>Country*</label>
-                                    <select class="cr-form-control" aria-label="Default select example" name="country"
+                                    <label>Address*</label>
+                                    <input type="text" name="address" placeholder="Address" class="cr-form-control"
                                         required>
-                                        <option selected>Country</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
                                 </div>
                             </div>
+
                             <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Region State*</label>
-                                    <select class="cr-form-control" aria-label="Default select example" name="state"
-                                        required>
-                                        <option selected>Region/State</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Password*</label>
-                                    <input type="password" name="password" placeholder="Enter Your password"
-                                        class="cr-form-control" required>
-                                </div>
+
                             </div>
                             <div class="cr-register-buttons">
                                 <button type="submit" class="cr-button">Signup</button>
@@ -141,4 +141,11 @@
         </div>
     </div>
 </section>
+
+<script>
+    setTimeout(function () {
+        document.getElementById("message").style.display = "none";
+    }, 5000);  // Hide the message after 5 seconds
+</script>
+
 {% endblock %}

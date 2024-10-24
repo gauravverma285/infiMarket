@@ -18,21 +18,6 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User_Registration(AbstractBaseUser, PermissionsMixin):
-    CITY_CHOICES = (
-        ('city_one', 'City One'),
-        ('city_two', 'City Two'),
-        ('city_three', 'City Three'),
-    )
-    COUNTRY_CHOICES = (
-        ('one', 'Country One'),
-        ('two', 'Country Two'),
-        ('three', 'Country Three'),
-    )
-    STATE_CHOICES = (
-        ('one', 'State One'),
-        ('two', 'State Two'),
-        ('three', 'State Three'),
-    )
 
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
@@ -41,8 +26,8 @@ class User_Registration(AbstractBaseUser, PermissionsMixin):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     postcode = models.PositiveBigIntegerField(default=0)
-    country = models.CharField(max_length=50, choices=COUNTRY_CHOICES)  
-    state = models.CharField(max_length=50, choices=STATE_CHOICES)
+    country = models.CharField(max_length=50, )  
+    state = models.CharField(max_length=50, )
     
     is_active = models.BooleanField(default=True)  # Required for AbstractBaseUser
     is_staff = models.BooleanField(default=False)  # For admin access
