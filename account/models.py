@@ -61,3 +61,22 @@ class User_Registration(AbstractBaseUser, PermissionsMixin):
         
     def check_password(self, raw_password):
         return super().check_password(raw_password)    
+
+
+
+class Category(models.Model):
+    category_name=models.CharField(max_length=150)
+    description=models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.category_name
+    
+class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    product_name=models.CharField(max_length=200)
+    description=models.CharField(max_length=150)
+    product_details=models.JSONField()
+
+    def __str__(self):
+        return self.category
+
