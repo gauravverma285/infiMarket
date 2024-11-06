@@ -27,7 +27,7 @@ class ProductAPIViews(APIView):
         products=Product.objects.all()
         serializer = productSerializer(products,many=True)
         res['status']=True
-        res['message']="add the product"
+        res['message']="fetch the product"
         res['data']=serializer.data
         return Response(res, status=status.HTTP_200_OK)
 
