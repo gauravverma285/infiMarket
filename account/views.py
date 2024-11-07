@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import User_Registration
+from django.shortcuts import get_object_or_404, render
+from .models import *
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib import messages
 from django.shortcuts import render , redirect
@@ -9,13 +9,40 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.conf import settings
+from django.db.models import Prefetch
 import random
+
 # Create your views here.
 
 
 
 def index(request):
-    return render(request, 'index.html')
+    categories = Category.objects.prefetch_related('products').all()
+    subcategories = Subcategory.objects.all()    
+    products = Product.objects.prefetch_related('images').all() 
+    prd=ProductImage.objects.all()
+  
+    product_ids = [product.id 
+                   for product in products]
+
+    print("Product IDs: ", product_ids)
+    context = {
+        'categories': categories,
+        'subcategories': subcategories,
+        'products': products,
+        
+    }
+    return render(request, 'index.html', context)
+
+
+
+def product_left_sidebar(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {
+        'product': product,
+    }
+    return render(request, 'product-left-sidebar.html', context)
+
 
 def register(request):
     if request.method == "POST":
@@ -98,11 +125,44 @@ def checkout(request):
 def wishlist(request):
     return render(request, 'wishlist.html')
 
-def left_sidebar(request):
-    return render(request, 'shop-left-sidebar.html')
 
-def product_left_sidebar(request):
-    return render(request, 'product-left-sidebar.html')
+# def combined_category(request):
+#     print("iiiiiiiiiinnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+#     categories = Category.objects.all()
+#     categories1 = Category.objects.prefetch_related('images').all()
+#     print(categories,'uhnuhjnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+#     subcategories = Subcategory.objects.all()  
+#     products = Product.objects.prefetch_related('images').all()
+#     categories2 = Category.objects.prefetch_related(
+#         Prefetch('products', queryset=Product.objects.all()[:2])
+#     ).all()
+#     print(categories2,'cccccccccccccccccccccccccccccccccccccccc')
+#     context={
+#         'categories':categories,
+#         'categories2':categories2,
+#         'categories1': categories1,
+#         'subcategories': subcategories,
+#         'products': products,
+#     }
+#     return render(request, 'index.html',context)
+
+def left_sidebar(request,pk):
+    categories = Category.objects.prefetch_related('products').all()
+    subcategories = Subcategory.objects.all()    
+    products = Product.objects.prefetch_related('images').all()      
+    product = get_object_or_404(Product, pk=pk)
+    context = {
+        'categories': categories,
+        'subcategories': subcategories,
+        'products': products,
+        'product':product,
+        
+    }
+    return render(request, 'index.html', context)
+    
+
+
+
 
 def about(request):
     return render(request, 'about.html')

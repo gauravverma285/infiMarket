@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import*
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index, name="index"),
@@ -9,7 +10,8 @@ urlpatterns = [
     path('checkout/', checkout, name="checkout"),
     path('wishlist/', wishlist, name="wishlist"),
     path('left_sidebar/', left_sidebar, name="shop-left-sidebar"),
-    path('product-left-sidebar/', product_left_sidebar, name="product-left-sidebar"),
+    path('product-left-sidebar', product_left_sidebar, name="product-left-sidebar"),
+    path('product-left-sidebar/<int:pk>/', product_left_sidebar, name="product-left-sidebar"),
     path('about/', about, name="about"),
     path('Contact/', Contact, name="contact-us"),
     path('cart/', cart, name="cart"),
@@ -25,4 +27,7 @@ urlpatterns = [
     path('delete/',delete,name='delete'),
     path('otp/',otp,name='otp'),
     path('newpassword/',new_password,name='newpassword'),
+    path('productimg/', ProductImage, name='productimg'),
+   
+
 ]

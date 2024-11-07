@@ -117,105 +117,33 @@
                         <div class="vehicle-detail-banner banner-content clearfix">
                             <div class="banner-slider">
                                 <div class="slider slider-for">
+                                    {% for image in product.images.all %}
                                     <div class="slider-banner-image">
                                         <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/9.jpg' %}" alt="product-tab-1"
+                                            <img src="{{ image.image.url }}" alt="product-tab-{{ forloop.counter }}"
                                                 class="product-image">
+                                            class="product-image">
                                         </div>
                                     </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/10.jpg' %}" alt="product-tab-2"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/11.jpg' %}" alt="product-tab-3"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/12.jpg' %}" alt="product-tab-1"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/13.jpg' %}" alt="product-tab-2"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/14.jpg' %}" alt="product-tab-3"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/15.jpg' %}" alt="product-tab-1"
-                                                class="product-image">
-                                        </div>
-                                    </div>
-                                    <div class="slider-banner-image">
-                                        <div class="zoom-image-hover">
-                                            <img src="{% static 'assets/img/product/16.jpg' %}" alt="product-tab-2"
-                                                class="product-image">
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                                 <div class="slider slider-nav thumb-image">
+                                    {% for image in product.images.all %}
                                     <div class="thumbnail-image">
                                         <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/9.jpg' %}" alt="product-tab-1">
+                                            <img src="{{ image.image.url }}" alt="product-tab-{{ forloop.counter }}">
                                         </div>
                                     </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/10.jpg' %}" alt="product-tab-2">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/11.jpg' %}" alt="product-tab-3">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/12.jpg' %}" alt="product-tab-1">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/13.jpg' %}" alt="product-tab-2">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/14.jpg' %}" alt="product-tab-3">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/15.jpg' %}" alt="product-tab-1">
-                                        </div>
-                                    </div>
-                                    <div class="thumbnail-image">
-                                        <div class="thumbImg">
-                                            <img src="{% static 'assets/img/product/16.jpg' %}" alt="product-tab-2">
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6 col-12 mb-24">
                         <div class="cr-size-and-weight-contain">
-                            <h2 class="heading">Seeds Of Change Oraganic Quinoa, Brown</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, iure minus error
-                                doloribus saepe natus?</p>
+                            <h2 class="heading">{{ product.name}}</h2>
+                            <p>{{ product.description }}</p>
                         </div>
                         <div class="cr-size-and-weight">
                             <div class="cr-review-star">
@@ -228,29 +156,29 @@
                                 </div>
                                 <p>( 75 Review )</p>
                             </div>
+
                             <div class="list">
                                 <ul>
-                                    <li><label>Brand <span>:</span></label>ESTA BETTERU CO</li>
-                                    <li><label>Flavour <span>:</span></label>Super Saver Pack</li>
-                                    <li><label>Diet Type <span>:</span></label>Vegetarian</li>
-                                    <li><label>Weight <span>:</span></label>200 Grams</li>
-                                    <li><label>Speciality <span>:</span></label>Gluten Free, Sugar Free</li>
-                                    <li><label>Info <span>:</span></label>Egg Free, Allergen-Free</li>
-                                    <li><label>Items <span>:</span></label>1</li>
+                                    {% for key , value in product.details.items %}
+                                    {% if key != "weights" %}
+                                    <li><label>{{ key }} <span>:</span></label>{{ value }}</li>
+                                    {% endif %}
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <div class="cr-product-price">
-                                <span class="new-price">$120.25</span>
-                                <span class="old-price">$123.25</span>
+                                <span class="new-price">{{ product.price}}</span>
+                                <span class="old-price">{{ product.old_price }}</span>
                             </div>
                             <div class="cr-size-weight">
                                 <h5><span>Size</span>/<span>Weight</span> :</h5>
                                 <div class="cr-kg">
                                     <ul>
-                                        <li class="active-color">50kg</li>
-                                        <li>80kg</li>
-                                        <li>120kg</li>
-                                        <li>200kg</li>
+                                        {% for weight in product.details.weights %}
+                                        <li {% if forloop.first %}class="active-color" {% endif %}>
+                                            {{ weight.weight}}
+                                        </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -277,6 +205,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="cr-paking-delivery">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -413,7 +342,7 @@
 </section>
 
 <!-- Popular products -->
-<section class="section-popular-products padding-tb-100" data-aos="fade-up" data-aos-duration="2000"
+<!-- <section class="section-popular-products padding-tb-100" data-aos="fade-up" data-aos-duration="2000"
     data-aos-delay="400">
     <div class="container">
         <div class="row">
@@ -463,7 +392,8 @@
                                         <p>(4.5)</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'product-left-sidebar' %}" class="title">Best snakes with hazel nut
+                                <a href="{% url 'product-left-sidebar' product.pk %}" class="title">Best snakes with
+                                    hazel nut
                                     mix pack 200gm</a>
                                 <p class="cr-price"><span class="new-price">$120.25</span> <span
                                         class="old-price">$123.25</span></p>
@@ -501,7 +431,8 @@
                                         <p>(5.0)</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'product-left-sidebar' %}" class="title">Sweet snakes crunchy nut
+                                <a href="{% url 'product-left-sidebar' product.pk  %}" class="title">Sweet snakes
+                                    crunchy nut
                                     mix 250gm
                                     pack</a>
                                 <p class="cr-price"><span class="new-price">$100.00</span> <span
@@ -540,7 +471,8 @@
                                         <p>(4.5)</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'product-left-sidebar' %}" class="title">Best snakes with hazel nut
+                                <a href="{% url 'product-left-sidebar' product.pk  %}" class="title">Best snakes with
+                                    hazel nut
                                     mix pack 200gm</a>
                                 <p class="cr-price"><span class="new-price">$120.25</span> <span
                                         class="old-price">$123.25</span></p>
@@ -578,7 +510,8 @@
                                         <p>(5.0)</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'product-left-sidebar' %}" class="title">Sweet snakes crunchy nut
+                                <a href="{% url 'product-left-sidebar' product.pk  %}" class="title">Sweet snakes
+                                    crunchy nut
                                     mix 250gm
                                     pack</a>
                                 <p class="cr-price"><span class="new-price">$100.00</span> <span
@@ -617,7 +550,8 @@
                                         <p>(5.0)</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'product-left-sidebar' %}" class="title">Sweet snakes crunchy nut
+                                <a href="{% url 'product-left-sidebar' product.pk  %}" class="title">Sweet snakes
+                                    crunchy nut
                                     mix 250gm
                                     pack</a>
                                 <p class="cr-price"><span class="new-price">$100.00</span> <span
@@ -629,6 +563,6 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 {% endblock %}

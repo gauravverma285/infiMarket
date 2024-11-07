@@ -3,3 +3,7 @@ from .models  import *
 # Register your models here.
 
 admin.site.register(User_Registration)
+admin.site.register(Category)
+admin.site.register(Subcategory)
+admin.site.register(Product)
+admin.site.register(ProductImage)
