@@ -190,47 +190,7 @@
                                 </div>
                             </div>
 
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const weightList = document.getElementById('weight-list');
-                                    const newPriceElement = document.getElementById('new-price');
-                                    const oldPriceElement = document.getElementById('old-price');
 
-                                    // Ensure the weightList element exists
-                                    if (weightList) {
-                                        // Set the initial old price based on the active weight
-                                        const activeWeight = weightList.querySelector('li.active-color');
-                                        if (activeWeight) {
-                                            const initialOldPrice = activeWeight.getAttribute('data-oldprice');
-                                            if (oldPriceElement) {
-                                                oldPriceElement.textContent = initialOldPrice;
-                                            }
-                                        }
-
-                                        weightList.addEventListener('click', function (event) {
-                                            const clickedElement = event.target;
-                                            if (clickedElement.tagName === 'LI') {
-                                                // Remove active-color class from all list items
-                                                const items = weightList.querySelectorAll('li');
-                                                items.forEach(item => item.classList.remove('active-color'));
-
-                                                // Add active-color class to the clicked item
-                                                clickedElement.classList.add('active-color');
-
-                                                // Update the prices
-                                                const newPrice = clickedElement.getAttribute('data-price');
-                                                const oldPrice = clickedElement.getAttribute('data-oldprice');
-                                                if (newPriceElement) {
-                                                    newPriceElement.textContent = newPrice;
-                                                }
-                                                if (oldPriceElement) {
-                                                    oldPriceElement.textContent = oldPrice;
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
 
                             <div class="cr-add-card">
                                 <div class="cr-qty-main">
@@ -614,5 +574,45 @@
         </div>
     </div>
 </section> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const weightList = document.getElementById('weight-list');
+        const newPriceElement = document.getElementById('new-price');
+        const oldPriceElement = document.getElementById('old-price');
 
+        // Ensure the weightList element exists
+        if (weightList) {
+            // Set the initial old price based on the active weight
+            const activeWeight = weightList.querySelector('li.active-color');
+            if (activeWeight) {
+                const initialOldPrice = activeWeight.getAttribute('data-oldprice');
+                if (oldPriceElement) {
+                    oldPriceElement.textContent = initialOldPrice;
+                }
+            }
+
+            weightList.addEventListener('click', function (event) {
+                const clickedElement = event.target;
+                if (clickedElement.tagName === 'LI') {
+                    // Remove active-color class from all list items
+                    const items = weightList.querySelectorAll('li');
+                    items.forEach(item => item.classList.remove('active-color'));
+
+                    // Add active-color class to the clicked item
+                    clickedElement.classList.add('active-color');
+
+                    // Update the prices
+                    const newPrice = clickedElement.getAttribute('data-price');
+                    const oldPrice = clickedElement.getAttribute('data-oldprice');
+                    if (newPriceElement) {
+                        newPriceElement.textContent = newPrice;
+                    }
+                    if (oldPriceElement) {
+                        oldPriceElement.textContent = oldPrice;
+                    }
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
