@@ -22,9 +22,7 @@ def index(request):
     products = Product.objects.prefetch_related('images').all() 
     prd=ProductImage.objects.all()
   
-    product_ids = [product.id 
-                   for product in products]
-
+    product_ids = [product.id for product in products]
     print("Product IDs: ", product_ids)
     context = {
         'categories': categories,
