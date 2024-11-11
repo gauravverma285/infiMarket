@@ -78,5 +78,5 @@ class Product(models.Model):
     product_details=models.JSONField()
 
     def __str__(self):
-        return self.category
+        return self.product_name
 
