@@ -81,8 +81,8 @@ class Product(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  
+    price = models.DecimalField(max_digits=10, decimal_places=1)
+    old_price = models.DecimalField(max_digits=10, decimal_places=1, blank=True, null=True)  
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0) 
     details=models.JSONField(blank=True, null=True)
     

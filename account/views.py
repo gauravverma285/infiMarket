@@ -35,9 +35,18 @@ def index(request):
 
 
 def product_left_sidebar(request, pk):
+    categories = Category.objects.prefetch_related('products').all()
+    print(categories,"cccccccccccccccccccccccccccccccccccccccccc")
+    subcategories = Subcategory.objects.all()    
+    print(subcategories,"ssssssssssssssssssssssssssssss")
+    products = Product.objects.prefetch_related('images').all()
+    
     product = get_object_or_404(Product, pk=pk)
     context = {
         'product': product,
+        'categories': categories,
+        'subcategories': subcategories,
+        'products': products, 
     }
     return render(request, 'product-left-sidebar.html', context)
 

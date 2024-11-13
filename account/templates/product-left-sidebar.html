@@ -122,11 +122,11 @@
                                         <div class="zoom-image-hover">
                                             <img src="{{ image.image.url }}" alt="product-tab-{{ forloop.counter }}"
                                                 class="product-image">
-                                            class="product-image">
                                         </div>
                                     </div>
                                     {% endfor %}
                                 </div>
+
                                 <div class="slider slider-nav thumb-image">
                                     {% for image in product.images.all %}
                                     <div class="thumbnail-image">
@@ -159,38 +159,78 @@
 
                             <div class="list">
                                 <ul>
-                                    {% for key , value in product.details.items %}
-                                    {% if key != "weights" %}
-                                    <li><label>{{ key }} <span>:</span></label>{{ value }}</li>
+                                    {% for key, value in product.details.items %}
+                                    {% if key != "weights" and key != "Sizes" and key != "ColorOptions" %}
+                                    <li class="list"><label>{{ key }} <span>:</span></label>{{ value }}</li>
                                     {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>
                             <div class="cr-product-price">
                                 <span class="new-price" id="new-price">{{ product.price }} </span>
-                                <span class="old-price" id="old-price">{{ product.oldprice }}</span>
+                                <span class="old-price" id="old-price">{{ product.old_price }}</span>
                             </div>
+                            {% for category in categories %}
+                            {% if category.name == "Men" %}
+                            {% for sub_category in subcategories %}
+                            {% if sub_category.name == "shirts" %}
+                            {% if product.details.Sizes %}
                             <div class="cr-size-weight">
-                                <h5><span>Size</span>/<span>Weight</span> :</h5>
+                                <h5><span>Size</span> :</h5>
                                 <div class="cr-kg">
-                                    <ul id="weight-list">
-                                        {% for weight in product.details.weights %}
-                                        {% if forloop.first %}
-                                        <li data-price="{{ weight.price }}" data-oldprice="{{ weight.oldprice }}"
-                                            class="active-color">
-                                            {{ weight.weight }}
+                                    <ul id="size-list">
+                                        {% for size in product.details.Sizes %}
+                                        <li data-price="{{ size.price }}" data-oldprice="{{ size.oldprice }}">
+                                            {{ size.size }}
                                         </li>
-                                        {% else %}
-                                        <li data-price="{{ weight.price }}" data-oldprice="{{ weight.oldprice }}">
-                                            {{ weight.weight }}
-                                        </li>
-                                        {% endif %}
                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
 
-
+                            {% for category in categories %}
+                            {% if category.name == "Dry_Fruits" %}
+                            {% for sub_category in subcategories %}
+                            {% if sub_category.name == "Dry_Fruits" %}
+                            {% if product.details.weights %}
+                            <div class="cr-size-weight">
+                                <h5><span> Weight </span> :</h5>
+                                <div class="cr-kg">
+                                    <ul id="weight-list">
+                                        {% for weight in product.details.weights %}
+                                        <li data-price="{{ weight.price }}" data-oldprice="{{ weight.oldprice }}">
+                                            {{ weight.weight }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if product.details.ColorOptions %}
+                            <div class="cr-size-weight">
+                                <h5><span>Colors</span> :</h5>
+                                <div class="cr-kg">
+                                    <ul id="color-list">
+                                        {% for color_option in product.details.ColorOptions %}
+                                        <li data-price="{{ color_option.price }}"
+                                            data-oldprice="{{ color_option.oldprice }}"
+                                            data-image="{{ color_option.image_url }}">
+                                            {{ color_option.color }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
 
                             <div class="cr-add-card">
                                 <div class="cr-qty-main">
@@ -200,7 +240,7 @@
                                     <button type="button" id="sub" class="minus">-</button>
                                 </div>
                                 <div class="cr-add-button">
-                                    <button type="button" class="cr-button cr-shopping-bag">Add to cart</button>
+                                    <button type="button" class="cr-button cr-shopping-bag ">Add to cart</button>
                                 </div>
                                 <div class="cr-card-icon">
                                     <a href="javascript:void(0)" class="wishlist">
@@ -574,9 +614,53 @@
         </div>
     </div>
 </section> -->
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const weightList = document.getElementById('weight-list');
+        const sizeList = document.getElementById('size-list'); // Size list for shirts
+        const newPriceElement = document.getElementById('new-price');
+        const oldPriceElement = document.getElementById('old-price');
+
+        // Ensure the sizeList element exists
+        if (sizeList) {
+            // Set the initial old price based on the active size
+            const activeSize = sizeList.querySelector('li.active-color');
+            if (activeSize) {
+                const initialOldPrice = activeSize.getAttribute('data-oldprice');
+                if (oldPriceElement) {
+                    oldPriceElement.textContent = initialOldPrice;
+                }
+            }
+
+            sizeList.addEventListener('click', function (event) {
+                const clickedElement = event.target;
+                if (clickedElement.tagName === 'LI') {
+                    // Remove active-color class from all list items
+                    const items = sizeList.querySelectorAll('li');
+                    items.forEach(item => item.classList.remove('active-color'));
+
+                    // Add active-color class to the clicked item
+                    clickedElement.classList.add('active-color');
+
+                    // Update the prices
+                    const newPrice = clickedElement.getAttribute('data-price');
+                    const oldPrice = clickedElement.getAttribute('data-oldprice');
+                    if (newPriceElement) {
+                        newPriceElement.textContent = newPrice;
+                    }
+                    if (oldPriceElement) {
+                        oldPriceElement.textContent = oldPrice;
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const weightList = document.getElementById('weight-list'); // Weight list for dry fruits
         const newPriceElement = document.getElementById('new-price');
         const oldPriceElement = document.getElementById('old-price');
 
@@ -615,4 +699,52 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorList = document.getElementById('color-list');
+        const newPriceElement = document.getElementById('new-price');
+        const oldPriceElement = document.getElementById('old-price');
+
+        // Ensure the colorList element exists
+        if (colorList) {
+            // Set the initial prices based on the active color
+            const activeColor = colorList.querySelector('li.active-color');
+            if (activeColor) {
+                const initialNewPrice = activeColor.getAttribute('data-price');
+                const initialOldPrice = activeColor.getAttribute('data-oldprice');
+                if (newPriceElement) {
+                    newPriceElement.textContent = initialNewPrice;
+                }
+                if (oldPriceElement) {
+                    oldPriceElement.textContent = initialOldPrice;
+                }
+            }
+
+            colorList.addEventListener('click', function (event) {
+                const clickedElement = event.target;
+                if (clickedElement.tagName === 'LI') {
+                    // Remove active-color class from all list items
+                    const items = colorList.querySelectorAll('li');
+                    items.forEach(item => item.classList.remove('active-color'));
+
+                    // Add active-color class to the clicked item
+                    clickedElement.classList.add('active-color');
+
+                    // Update the prices
+                    const newPrice = clickedElement.getAttribute('data-price');
+                    const oldPrice = clickedElement.getAttribute('data-oldprice');
+                    if (newPriceElement) {
+                        newPriceElement.textContent = newPrice;
+                    }
+                    if (oldPriceElement) {
+                        oldPriceElement.textContent = oldPrice;
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
 {% endblock %}
